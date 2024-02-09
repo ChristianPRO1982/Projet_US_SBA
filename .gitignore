@@ -3,6 +3,7 @@ kevin/
 data_set/SBAnational.csv
 data_set/SBAnational-EDA.csv
 data_set/SBAnational-EDA2.csv
+model/modelLGBM.pkl
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,linux,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,linux,macos
