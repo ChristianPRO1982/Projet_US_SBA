@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def homepage(request):
-    return render(request, 'html/homepage.html')
+def predict_index(request):
+    return render(request, 'html/predict_index.html')
