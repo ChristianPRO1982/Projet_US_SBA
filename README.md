@@ -34,7 +34,8 @@ Le projet est divisé en trois parties principales :
 Pour exécuter le projet localement, assurez-vous d'avoir Docker installé sur votre système. Utilisez Docker Compose pour gérer les conteneurs Docker pour chaque partie du projet :
 
 ```bash
-docker-compose up```
+docker-compose up
+```
 Cela démarrera les conteneurs Docker pour l'API de prédiction, l'application Django et la base de données PostgreSQL.
 
 Assurez-vous également d'installer les dépendances Python spécifiées dans les fichiers requirements.txt pour chaque partie du projet avant de lancer les conteneurs Docker.
