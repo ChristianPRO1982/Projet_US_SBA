@@ -7,7 +7,7 @@
 </style>
 <header class='bg-gray-300'>
     <nav class='justify-between max-w-6xl mx-auto items-center px-6 h-16 text-base font-semibold hidden md:flex'>
-        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+        <a href="/"><img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""></a>
         <div class='flex lg:gap-x-16 gap-x-6'>
             <a href=" {% url "predict_homepage" %} ">Garantie SBA du prêt</a>
             <a href=""></a>
@@ -17,10 +17,10 @@
         <div class='flex gap-x-2'>
         {% if user.is_authenticated %}
             <span>Logged as : {{user.get_username}}</span>
-            {% comment %} <a href="{% url "logout" %}">logout</a> {% endcomment %}
+            [ <a href="http://127.0.0.1:8000/admin/">Admin (logout)</a> ]
         {% else %}
             <span>You are not logged</span>
-            {% comment %} <a href="{% url "login" %}">login</a> {% endcomment %}
+            [ <a href="http://127.0.0.1:8000/admin/login/?next=/admin/">login</a> ]
         {% endif %}
         </div>
         

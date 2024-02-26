@@ -1,3 +1,12 @@
 p {
     color:green
 }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333; /* Couleur de fond du pied de page */
+    color: #fff; /* Couleur du texte */
+    padding: 20px; /* Espacement intérieur */
+}
