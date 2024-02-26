@@ -1,0 +1,51 @@
+LoanNr_ChkDgt :Identifiant 
+
+Name  : Nom de l'emprunteur
+
+City : : Ville de l'emprunteur
+
+Zip : Code postal de l'emprunteur
+
+Bank : Nom de la banque
+
+BankState : État de la banque
+
+NAICS : Code du système de classification industrielle nord-américain
+
+ApprovalDate: Date d'émission de l'engagement de la SBA
+
+ApprovalFY : Exercice fiscal de l'engagement
+
+Term : Durée du prêt en mois
+
+NoEmp : Nombre d'employés de l'entreprise
+
+NewExist : 1 = Entreprise existante, 2 = Nouvelle entreprise
+
+CreateJob : Nombre d'emplois créés
+
+RetainedJob : Nombre d'emplois maintenus
+
+FranchiseCode : Code de franchise, (00000 ou 00001) = Pas de franchise
+
+UrbanRural : 1 = Urbain, 2 = Rural, 0 = Indéfini
+
+RevLineCr : Ligne de crédit renouvelable : Y = Oui, N = Non
+
+LowDoc : Programme de prêts LowDoc : Y = Oui, N = Non
+
+ChgOff  Date: Date à laquelle un prêt est déclaré en défaut
+
+Disbursement Date: Date de déboursement
+
+DisbursementGross : Montant déboursé
+
+BalanceGross : Montant brut impayé
+
+MIS_Status : État du prêt : Chargé hors bilan = CHGOFF, Payé intégralement = PIF
+
+ChgOffPrinGr : Montant déchargé
+
+GrAppv : Montant brut du prêt approuvé par la banque
+
+SBA_Appv : Montant approuvé garanti par la SBA
