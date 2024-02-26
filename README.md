@@ -43,12 +43,12 @@ Contribuer
 
 Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce projet, veuillez suivre ces étapes :
 
-    Fork du projet
-    Créez une nouvelle branche (git checkout -b feature)
-    Faites vos modifications
-    Commitez vos modifications (git commit -am 'Ajout d'une nouvelle fonctionnalité')
-    Poussez sur la branche (git push origin feature)
-    Créez une nouvelle Pull Request
+   - Fork du projet
+   - Créez une nouvelle branche (git checkout -b feature)
+   - Faites vos modifications
+   - Commitez vos modifications (git commit -am 'Ajout d'une nouvelle fonctionnalité')
+   - Poussez sur la branche (git push origin feature)
+   - Créez une nouvelle Pull Request
 
 Auteurs
 
