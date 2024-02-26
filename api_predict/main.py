@@ -1,10 +1,7 @@
-from typing import Union
 from pydantic import BaseModel
 from fastapi import FastAPI
 from model_utils import load_model, prediction
 import pandas as pd
-
-app = FastAPI()
 
 '''
 City	EVANSVILLE
@@ -29,6 +26,8 @@ GrAppv	60000.0
 SBA_Appv	48000.0
 MIS_Status	P I F
 '''
+
+app = FastAPI()
 
 class FeaturesInput(BaseModel):
     City: str
