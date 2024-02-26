@@ -2,6 +2,7 @@ from typing import Union
 from pydantic import BaseModel
 from fastapi import FastAPI
 from model_utils import load_model, prediction
+import pandas as pd
 
 app = FastAPI()
 
@@ -52,14 +53,15 @@ class FeaturesInput(BaseModel):
     SBA_Appv: float
 
 class PredictionOutput(BaseModel):
-    category: int
+    predict: int
 
 @app.post("/predict")
 def prediction_root(features_input: FeaturesInput):
     model = load_model('modelLGBM.pkl')
 
-    data_input = [getattr(features_input, field) for field in FeaturesInput.__fields__.keys()]
+    data_input_dict = features_input.dict()
+    data_input_df = pd.DataFrame(data_input_dict, index=[0])
 
-    predictions = prediction(model, [data_input])
+    predictions = prediction(model, data_input_df)
     
-    return PredictionOutput(category=predictions)
+    return PredictionOutput(predict=predictions)
