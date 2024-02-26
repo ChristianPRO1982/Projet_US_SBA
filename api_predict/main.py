@@ -30,7 +30,6 @@ MIS_Status	P I F
 '''
 
 class FeaturesInput(BaseModel):
-    sepal_length: float
     City: str
     State: str
     Zip: float
@@ -56,16 +55,11 @@ class PredictionOutput(BaseModel):
     category: int
 
 @app.post("/predict")
-def prediction_root(features_input:FeaturesInput):
-    model = load_model('model.pkl')
+def prediction_root(features_input: FeaturesInput):
+    model = load_model('modelLGBM.pkl')
 
-    data_input = []
-    data_input.append(features_input.sepal_length)
-    data_input.append(features_input.sepal_width)
-    data_input.append(features_input.petal_length)
-    data_input.append(features_input.petal_width)
-    data_input = [data_input]
+    data_input = [getattr(features_input, field) for field in FeaturesInput.__fields__.keys()]
 
-    predictions = prediction(model, data_input)
+    predictions = prediction(model, [data_input])
     
     return PredictionOutput(category=predictions)
