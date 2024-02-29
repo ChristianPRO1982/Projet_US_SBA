@@ -1,44 +1,25 @@
 {% load static %}
 
-<style>
-    nav a:hover {
-        background-color: #5dade2;
-    }
-</style>
-<header class='bg-gray-300'>
-    <nav class='justify-between max-w-6xl mx-auto items-center px-6 h-16 text-base font-semibold hidden md:flex'>
-        <a href="/"><img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""></a>
-        <div class='flex lg:gap-x-16 gap-x-6'>
-            <a href=" {% url "predict_homepage" %} ">Garantie SBA du prêt</a>
-            <a href=""></a>
-            <a href=""></a>
+<header>
+    <nav class="text-white font-semibold bg-gray-800 p-6 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="/"><img class="h-8 mr-4 w-auto ml-4"
+                src="{% static "images/US_SQB-1.jpeg" %}" alt="#"></a>
+            <span class="text-blue-600/60 text-lg font-bold hidden sm:flex">Kévin & Christian corporation ™</span>
         </div>
-
-        <div class='flex gap-x-2'>
-        {% if user.is_authenticated %}
-            <span>Logged as : {{user.get_username}}</span>
-            [ <a href="http://127.0.0.1:8000/admin/">Admin (logout)</a> ]
-        {% else %}
-            <span>You are not logged</span>
-            [ <a href="http://127.0.0.1:8000/admin/login/?next=/admin/">login</a> ]
-        {% endif %}
+    
+        <div class="mr-4 hidden md:flex">
+            {% include "includes/links.html" %}
         </div>
-        
-    </nav>
-
-    <div id='hamburger' class='flex justify-end md:hidden h-16 items-center'>
-        <div class='w-6 space-y-1 mx-3'>
-            <div class="h-1 bg-black"></div>
-            <div class="h-1 bg-black"></div>
-            <div class="h-1 bg-black"></div>
+    
+        <div class="text-center mr-4 hidden md:flex">
+            {% if user.is_authenticated %}
+                <span>Logged as : {{user.get_username}}<br>
+                [ <a href="http://127.0.0.1:8000/admin/">logout</a> ]</span>
+            {% else %}
+                <span>You are not logged</span>
+                [ <a href="http://127.0.0.1:8000/admin/login/?next=/admin/">login</a> ]
+            {% endif %}
         </div>
-    </div>
-
-    <nav id='menu' class='flex flex-col absolute top-0 bg-gray-400 w-full hidden'>
-        <a href="">Lien 1</a>
-        <a href="">Lien 2</a>
-        <a href="">Lien 3</a>
-        <a href="">Login &#10132;</a>
-    </nav>
-
+    </nav>    
 </header>
