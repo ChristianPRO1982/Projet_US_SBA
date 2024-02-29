@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('root.urls')),
     path('predict/',include('predict.urls')),
+    path('', include("django.contrib.auth.urls")),
 ]
