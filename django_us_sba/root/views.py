@@ -14,6 +14,9 @@ def root_homepage(request):
 def about(request):
     return render(request, 'root/about.html')
 
+def history(request):
+    return render(request, 'root/history.html')
+
 class UserCreationFromCustom(UserCreationForm):
     class Meta(UserCreationForm.Meta) :
         model = User
