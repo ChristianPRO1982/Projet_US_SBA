@@ -11,6 +11,9 @@ from django.contrib import messages
 def root_homepage(request):
     return render(request, 'root/root_homepage.html')
 
+def about(request):
+    return render(request, 'root/about.html')
+
 class UserCreationFromCustom(UserCreationForm):
     class Meta(UserCreationForm.Meta) :
         model = User

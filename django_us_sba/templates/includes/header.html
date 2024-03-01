@@ -4,7 +4,7 @@
     <nav class="text-cyan-200 font-semibold bg-cyan-950 p-6 flex items-center justify-between">
         <div class="flex items-center">
             <a href="/"><img class="h-8 mr-4 w-auto ml-4 rounded-lg" src="{% static "images/US_SQB-2.jpeg" %}" alt="#"></a>
-            <a href="/"><span class="text-cyan-500/60 text-lg font-bold hidden sm:flex">{{ company_name }}</span></a>
+            <a href="/"><span class="text-cyan-500/60 text-lg font-bold">{{ company_name_small }}</span></a>
             </a>
         </div>
     
@@ -19,5 +19,20 @@
                 <a href=" {% url "login" %} ">login</a>
             {% endif %}
         </div>
+
+        <div id='hamburger' class='flex justify-end md:hidden h-16 items-center'>
+            <div class='w-6 space-y-1 mx-3'>
+                <div class="h-1 bg-black"></div>
+                <div class="h-1 bg-black"></div>
+                <div class="h-1 bg-black"></div>
+            </div>
+        </div>
+    
+        <nav id='menu' class='flex flex-col absolute top-0 bg-gray-400 w-full hidden'>
+            <a href="">Lien 1</a>
+            <a href="">Lien 2</a>
+            <a href="">Lien 3</a>
+            <a href="">Login &#10132;</a>
+        </nav>
     </nav>
 </header>
