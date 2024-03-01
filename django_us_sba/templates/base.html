@@ -15,7 +15,7 @@
         <div class="min-h-screen text-cyan-900 p-10 lg:w-2/3">
             {% block content %}{% endblock content %}
         </div>
-        <div class="bg-cyan-100 text-cyan-900 p-10 lg:w-1/3">
+        <div class="bg-gray-100 text-cyan-900 p-10 lg:w-1/3">
             {% if user.is_authenticated %}
                 <span>Logged as: <i>{{user.get_username}}</i></span>
             {% else %}

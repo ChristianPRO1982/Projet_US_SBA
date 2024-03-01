@@ -5,10 +5,14 @@ from django.urls import reverse_lazy
 from .forms import SignupForm
 from django.contrib.auth.password_validation import password_validators_help_texts
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 def root_homepage(request):
     return render(request, 'root/root_homepage.html')
+
+def about(request):
+    return render(request, 'root/about.html')
 
 class UserCreationFromCustom(UserCreationForm):
     class Meta(UserCreationForm.Meta) :
@@ -26,6 +30,14 @@ class SignupView(CreateView):
         user.save()
         # self.send_confirmation_email(user)
         return response
+    
+    def form_invalid(self, form):
+        # Récupérer les erreurs du formulaire
+        errors = form.errors.get('__all__') or form.errors
+        # Ajouter les erreurs dans les messages de la requête
+        for field, error in errors.items():
+            messages.error(self.request, f"{field}: {error}")
+        return super().form_invalid(form)
 
     # def send_confirmation_email(self, user):
     #     mailjet.send.create(data=data)

@@ -52,6 +52,18 @@
 
 
 {% block right-column %}
+{% if form.errors %}
+<div class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">
+    <h2 class="font-bold">Error</h2>
+    <ul class="list-disc ml-4">
+        {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+        <li>{{ field }}: {{ error }}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div><br><br>
+{% endif %}
 <strong>Password:</strong><br>
 Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
 <ul class="list-disc ml-10">
