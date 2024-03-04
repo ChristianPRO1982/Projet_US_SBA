@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+ERROR 404
+{% endblock title %}
+
+{% block content %}
+<h1>PAGE NOT FOUND</h1>
+<p>The page you are looking for does not exist. Please check the URL or try navigating to another page.</p>
+{% endblock content %}
+
+{% block right-column %}
+<h2>Erreur de l'espace</h2>
+<div id="texte"></div>
+<script>
+    // Définir le texte à afficher lettre par lettre
+    var texte = "1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 1976";
+  
+    var index = 0;
+    var vitesse = 1; // Vitesse de la frappe en millisecondes
+  
+    function afficherLettre() {
+      var element = document.getElementById('texte');
+      element.textContent += texte[index];
+      index++;
+      if (index < texte.length) {
+        setTimeout(afficherLettre, vitesse);
+      } else {
+        // Une fois que le texte est entièrement affiché, recommencer la boucle
+        setTimeout(recommencer, 1000);
+      }
+    }
+  
+    function recommencer() {
+      document.getElementById('texte').textContent = '';
+      index = 0;
+      setTimeout(afficherLettre, vitesse);
+    }
+  
+    // Démarrer l'affichage lettre par lettre
+    afficherLettre();
+  </script>
+{% endblock right-column %}
