@@ -6,6 +6,11 @@
 
 {% block content %}
 
+{% if request.GET.next %}
+    <!-- Ajouter un champ caché contenant l'URL de redirection -->
+    <input name="next" value="{{ request.GET.next }}">
+{% endif %}
+
 <section>
     <div class="text-xl font-semibold flex flex-col items-center">
         <img class="w-20 h-20 mr-2 rounded-lg" src="{% static "images/US_SQB-2.jpeg" %}" alt="logo">
