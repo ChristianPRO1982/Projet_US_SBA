@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Bank
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-4">{{ Name }}</h1>
+{% include '../common/process.html' with process_page=2 %}
+<h2 class="text-3xl font-bold mb-4">Bank</h2>
+<form action="{% url 'process_bank' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
+    {% csrf_token %}
+    <div class="bg-blue-50 p-1 rounded-md">
+        Bank: {{ form.Bank }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Bank State: {{ form.BankState }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        NAICS: {{ form.NAICS }}
+    </div>
+    <div class="md:col-span-3">
+        <button type="submit"
+            class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none
+            focus:bg-blue-600">Submit</button>
+        <button type="submit"  name="submit_next"
+            class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none
+            focus:bg-blue-600">Submit + next ➡️</button>
+    </div>
+</form>
+{% endblock content %}
+
+{% block right-column %}
+{% include '../common/links.html' %}
+{% endblock right-column %}

@@ -8,7 +8,7 @@
 
 {% if request.GET.next %}
     <!-- Ajouter un champ caché contenant l'URL de redirection -->
-    <input name="next" value="{{ request.GET.next }}">
+    {% comment %} <input name="next" value="{{ request.GET.next }}"> {% endcomment %}
 {% endif %}
 
 <section>

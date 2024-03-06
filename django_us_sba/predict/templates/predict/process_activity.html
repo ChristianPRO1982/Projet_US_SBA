@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Activity
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-4">{{ Name }}</h1>
+{% include '../common/process.html' with process_page=3 %}
+<h2 class="text-3xl font-bold mb-4">Activity</h2>
+<form action="{% url 'process_activity' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
+    {% csrf_token %}
+    <div class="bg-blue-50 p-1 rounded-md">
+        New Exist: {{ form.NewExist }}<br>[1 = Existing business, 2 = New business]
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Number of business employees: {{ form.NoEmp }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Franchise Code:
+        <input id="FranchiseCode_yes" name="r_FranchiseCode" value="yes" type="radio"{% if form.FranchiseCode.value == 0 %} checked="checked"{% endif %}>
+        <label for="FranchiseCode_yes">Yes</label>
+        <input id="FranchiseCode_no" name="r_FranchiseCode" value="no" type="radio"{% if form.FranchiseCode.value != 0 %} checked="checked"{% endif %}>
+        <label for="FranchiseCode_no">No</label>
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Number of jobs created: {{ form.CreateJob }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Number of jobs retained: {{ form.RetainedJob }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Diff jobs: <b>{{ form.DiffJobs.value }}</b>
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Urban Rural:
+        <input id="UrbanRural_Urban" name="r_UrbanRural" value="Urban" type="radio"{% if form.UrbanRural.value == 1 %} checked="checked"{% endif %}>
+        <label for="UrbanRural_Urban">Urban</label>
+        <input id="UrbanRural_Rural" name="r_UrbanRural" value="Rural" type="radio"{% if form.UrbanRural.value == 2 %} checked="checked"{% endif %}>
+        <label for="UrbanRural_Rural">Rural</label>
+        <input id="UrbanRural_Undefined" name="r_UrbanRural" value="Undefined" type="radio"{% if form.UrbanRural.value == 0 %} checked="checked"{% endif %}>
+        <label for="UrbanRural_Undefined">Undefined</label>
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Revolving line of credit:
+        <input id="RevLineCr_yes" name="r_RevLineCr" value="yes" type="radio"{% if form.RevLineCr.value == 'Y' %} checked="checked"{% endif %}>
+        <label for="RevLineCr_yes">Yes</label>
+        <input id="RevLineCr_no" name="r_RevLineCr" value="no" type="radio"{% if form.RevLineCr.value != 'Y' %} checked="checked"{% endif %}>
+        <label for="RevLineCr_no">No</label>
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        LowDoc Loan Program:
+        <input id="LowDoc_yes" name="r_LowDoc" value="yes" type="radio"{% if form.LowDoc.value == 'Y' %} checked="checked"{% endif %}>
+        <label for="LowDoc_yes">Yes</label>
+        <input id="LowDoc_no" name="r_LowDoc" value="no" type="radio"{% if form.LowDoc.value != 'Y' %} checked="checked"{% endif %}>
+        <label for="LowDoc_no">No</label>
+    </div>
+    <div class="md:col-span-3">
+        <button type="submit"
+        class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none
+        focus:bg-blue-600">Submit</button>
+    <button type="submit"  name="submit_next"
+        class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none
+        focus:bg-blue-600">Submit + next ➡️</button>
+    </div>
+</form>
+{% endblock content %}
+
+{% block right-column %}
+{% include '../common/links.html' %}
+{% endblock right-column %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Active process
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-4">Active process</h1>
+{% include '../common/process.html' with process_page=0 %}
+<h2 class="text-2xl font-bold mb-4">{{ data.Name }}</h2>
+{{ data }}
+{% endblock content %}
+
+{% block right-column %}
+{% include '../common/links.html' %}
+{% endblock right-column %}

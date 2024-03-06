@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-New process
+SBA approuval
 {% endblock title %}
 
 {% block content %}
-<h1 class="text-4xl font-bold mb-4">New process</h1>
-<form action="{% url 'new_process' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
+<h1 class="text-4xl font-bold mb-4">{{ Name }}</h1>
+{% include '../common/process.html' with process_page=6 %}
+<h2 class="text-3xl font-bold mb-4">SBA approuval</h2>
+<form action="{% url 'process_sbaapprouval' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
     {% csrf_token %}
     <div class="bg-cyan-100 p-1 rounded-xl">
         Name: {{ form.Name }}
