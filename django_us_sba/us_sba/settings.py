@@ -80,12 +80,45 @@ WSGI_APPLICATION = 'us_sba.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DB_USERNAME = os.getenv('POSTGRES_USER')
+DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+DB_DATABASE = os.getenv('POSTGRES_DB')
+DB_HOST = os.getenv('POSTGRES_HOST')
+DB_PORT = os.getenv('POSTGRES_PORT')
+
+POSTGRES_AVAIL = all(
+    [
+        DB_USERNAME,
+        DB_PASSWORD,
+        DB_DATABASE,
+        DB_HOST,
+        DB_PORT,
+    ]
+)
+
+POSTGRES_RDY = int(os.getenv('POSTGRES_RDY'))
+
+if POSTGRES_AVAIL and POSTGRES_RDY:
+    print('##### PostGreSQL #####')
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": DB_DATABASE,
+            'USER' : DB_USERNAME,
+            'PASSWORD' : DB_PASSWORD,
+            'HOST' : DB_HOST,
+            'PORT' : DB_PORT,
+        }
     }
-}
+
+else:
+    print('##### SQLite #####')
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
