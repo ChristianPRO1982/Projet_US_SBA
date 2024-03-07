@@ -8,17 +8,14 @@ New process
 <h1 class="text-4xl font-bold mb-4">New process</h1>
 <form action="{% url 'new_process' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
     {% csrf_token %}
-    <div class="bg-cyan-100 p-1 rounded-xl">
+    <div class="bg-blue-50 p-1 rounded-md">
         Name: {{ form.Name }}
     </div>
-    <div class="bg-cyan-100 p-1 rounded-xl">
+    <div class="bg-blue-50 p-1 rounded-md">
         City: {{ form.City }}
     </div>
-    <div class="bg-cyan-100 p-1 rounded-xl">
-        State: {{ form.State }}
-    </div>
-    <div class="bg-cyan-100 p-1 rounded-xl">
-        Zip: {{ form.Zip }}
+    <div class="bg-blue-50 p-1 rounded-md">
+        Bank: {{ form.Bank }}
     </div>
     <div class="md:col-span-3">
         <button type="submit"

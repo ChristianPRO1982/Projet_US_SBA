@@ -1,13 +1,15 @@
 <div class="text-center border-dashed border-2 border-gray-300 pl-2">
+    <span class="text-2xl"><a href="/predict/{{ request.session.process_pk }}">🏠</a> 〉</span>
     <input type="radio" {% if process_page == 1 %}checked{% endif %} disabled> {% if process_page == 1 %}<i>{% endif %}<a href="{% url "process_location" %}">Location</a>{% if process_page == 1 %}</i>{% endif %}
-    <span class="text-2xl">〉</span>
+    {% if form.process_location.value == True %}🟢{% else %}🔴{% endif %}<span class="text-2xl"> 〉</span>
     <input type="radio" {% if process_page == 2 %}checked{% endif %} disabled> {% if process_page == 2 %}<i>{% endif %}<a href="{% url "process_bank" %}">Bank</a>{% if process_page == 2 %}</i>{% endif %}
-    <span class="text-2xl">〉</span>
+    {% if form.process_bank.value == True %}🟢{% else %}🔴{% endif %}<span class="text-2xl"> 〉</span>
     <input type="radio" {% if process_page == 3 %}checked{% endif %} disabled> {% if process_page == 3 %}<i>{% endif %}<a href="{% url "process_activity" %}">Activity</a>{% if process_page == 3 %}</i>{% endif %}
-    <span class="text-2xl">〉</span>
+    {% if form.process_activity.value == True %}🟢{% else %}🔴{% endif %}<span class="text-2xl"> 〉</span>
     <input type="radio" {% if process_page == 4 %}checked{% endif %} disabled> {% if process_page == 4 %}<i>{% endif %}<a href="{% url "process_bankloan" %}">Bank loan</a>{% if process_page == 4 %}</i>{% endif %}
-    <span class="text-2xl">〉</span>
+    {% if form.process_bank_loan.value == True %}🟢{% else %}🔴{% endif %}<span class="text-2xl"> 〉</span>
     <input type="radio" {% if process_page == 5 %}checked{% endif %} disabled> {% if process_page == 5 %}<i>{% endif %}<a href="{% url "process_guaranteedamountrequested" %}">Guaranteed amount requested</a>{% if process_page == 5 %}</i>{% endif %}
-    <span class="text-2xl">〉</span>
+    {% if form.process_guaranteed_amount_requested.value == True %}🟢{% else %}🔴{% endif %}<span class="text-2xl"> 〉</span>
     <input type="radio" {% if process_page == 6 %}checked{% endif %} disabled> {% if process_page == 6 %}<i>{% endif %}<a href="{% url "process_sbaapprouval" %}">SBA approuval</a>{% if process_page == 6 %}</i>{% endif %}
+    {% if form.process_sba_approuval.value == True %}🟢{% else %}🔴{% endif %}
 </div><br>

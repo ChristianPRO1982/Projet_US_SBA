@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% include '../common/process_status_mini.html'%}Confirm deleting
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-4">{{ Name }} <small><small><small>[{% include '../common/process_status.html'%}]</small></small></small></h1>
+{% include '../common/process.html' with process_page=6 %}
+<h2 class="text-3xl font-bold mb-4">SBA approuval</h2>
+<form action="{% url 'process_delete_validation' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
+    {% csrf_token %}
+    <div class="md:col-span-3">
+        <button type="submit" name="Confirm"
+            class="inline-block bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600
+            focus:outline-none focus:bg-red-600">Confirm</button>
+        <button type="submit" name="Deny"
+            class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600
+            focus:outline-none focus:bg-blue-600">Deny</button>
+    </div>
+</form>
+{% endblock content %}
+
+{% block right-column %}
+{% include '../common/links.html' %}
+<br><hr><br>
+{% include '../common/info.html' %}
+{% endblock right-column %}

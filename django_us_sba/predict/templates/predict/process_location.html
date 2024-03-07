@@ -1,13 +1,21 @@
 {% extends "base.html" %}
 
 {% block title %}
-Location
+{% include '../common/process_status_mini.html'%}Location
 {% endblock title %}
 
 {% block content %}
-<h1 class="text-4xl font-bold mb-4">{{ Name }}</h1>
+<h1 class="text-4xl font-bold mb-4">{{ Name }} <small><small><small>[{% include '../common/process_status.html'%}]</small></small></small></h1>
 {% include '../common/process.html' with process_page=1 %}
 <h2 class="text-3xl font-bold mb-4">Location</h2>
+
+{% if errors %}
+    <div class="bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Errors:</strong>
+        {{ errors }}
+    </div><br>
+{% endif %}
+
 <form action="{% url 'process_location' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
     {% csrf_token %}
     <div class="bg-blue-50 p-1 rounded-md">
@@ -32,4 +40,6 @@ Location
 
 {% block right-column %}
 {% include '../common/links.html' %}
+<br><hr><br>
+{% include '../common/info.html' %}
 {% endblock right-column %}

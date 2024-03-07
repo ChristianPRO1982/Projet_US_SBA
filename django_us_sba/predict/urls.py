@@ -11,4 +11,5 @@ urlpatterns = [
     path('process_bankloan/', views.process_bankloan, name='process_bankloan'),
     path('process_guaranteedamountrequested/', views.process_guaranteedamountrequested, name='process_guaranteedamountrequested'),
     path('process_sbaapprouval/', views.process_sbaapprouval, name='process_sbaapprouval'),
+    path('process_delete_validation/', views.process_delete_validation, name='process_delete_validation'),
 ]

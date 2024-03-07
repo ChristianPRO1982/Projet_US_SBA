@@ -4,3 +4,4 @@ django-livereload-server<1
 django-widget-tweaks<2
 requests<3
 psycopg2-binary<3
+whitenoise<7

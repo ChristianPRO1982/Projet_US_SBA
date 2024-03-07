@@ -1,17 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}
-Activity
+{% include '../common/process_status_mini.html'%}Activity
 {% endblock title %}
 
 {% block content %}
-<h1 class="text-4xl font-bold mb-4">{{ Name }}</h1>
+<h1 class="text-4xl font-bold mb-4">{{ Name }} <small><small><small>[{% include '../common/process_status.html'%}]</small></small></small></h1>
 {% include '../common/process.html' with process_page=3 %}
 <h2 class="text-3xl font-bold mb-4">Activity</h2>
+
+{% if errors %}
+    <div class="bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Errors:</strong>
+        {{ errors }}
+    </div><br>
+{% endif %}
+
 <form action="{% url 'process_activity' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
     {% csrf_token %}
     <div class="bg-blue-50 p-1 rounded-md">
-        New Exist: {{ form.NewExist }}<br>[1 = Existing business, 2 = New business]
+        New Exist:
+        <input id="NewExist_no" name="r_NewExist" value="1" type="radio"{% if form.NewExist.value == 1 %} checked="checked"{% endif %}>
+        <label for="NewExist_no">Existing business</label>
+        <input id="NewExist_yes" name="r_NewExist" value="2" type="radio"{% if form.NewExist.value == 2 %} checked="checked"{% endif %}>
+        <label for="NewExist_yes">New business</label>
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
         Number of business employees: {{ form.NoEmp }}
@@ -68,4 +80,6 @@ Activity
 
 {% block right-column %}
 {% include '../common/links.html' %}
+<br><hr><br>
+{% include '../common/info.html' %}
 {% endblock right-column %}
