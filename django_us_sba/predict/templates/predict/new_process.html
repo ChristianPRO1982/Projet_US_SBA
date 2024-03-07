@@ -6,7 +6,22 @@ New process
 
 {% block content %}
 <h1 class="text-4xl font-bold mb-4">New process</h1>
-
+<form action="{% url 'new_process' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
+    {% csrf_token %}
+    <div class="bg-blue-50 p-1 rounded-md">
+        Name: {{ form.Name }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        City: {{ form.City }}
+    </div>
+    <div class="bg-blue-50 p-1 rounded-md">
+        Bank: {{ form.Bank }}
+    </div>
+    <div class="md:col-span-3">
+        <button type="submit"
+            class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Submit</button>
+    </div>
+</form>
 {% endblock content %}
 
 {% block right-column %}

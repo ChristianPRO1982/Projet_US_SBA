@@ -6,7 +6,9 @@ List of processes
 
 {% block content %}
 <h1 class="text-4xl font-bold mb-4">List of processes</h1>
-<h2>homepage</h2>
+{% for objet in data %}
+    <li><a href="{{ objet.id }}">🔗 {{ objet.Name }}</a></li>
+{% endfor %}
 {% endblock content %}
 
 {% block right-column %}

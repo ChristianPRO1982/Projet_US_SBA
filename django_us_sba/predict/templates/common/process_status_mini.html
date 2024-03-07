@@ -1,0 +1,11 @@
+{% comment %} 🔴 🟠 🟡 🟢 🔵 🟣 ⚫️ ⚪️ {% endcomment %}
+
+{% if form.process_status.value == 1 %}
+🔵
+{% elif form.process_status.value == 2 %}
+🟡
+{% elif form.process_status.value == 3 %}
+🟢
+{% else %}
+🔴
+{% endif %}

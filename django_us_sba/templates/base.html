@@ -1,11 +1,17 @@
 {% load static %}
 
+{% comment %} sudo apt purge nodejs npm
+sudo apt autoremove {% endcomment %}
+{% comment %} https://zippy-twig-11a.notion.site/Servir-les-fichiers-static-en-production-8d74d2c97aa34d10b321645626b42be1 {% endcomment %}
+{% comment %} https://whitenoise.readthedocs.io/en/stable/index.html {% endcomment %}
+{% comment %} https://linuxtldr.com/npx-package-runner/ {% endcomment %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %} - {{ company_name }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
     <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 </head>

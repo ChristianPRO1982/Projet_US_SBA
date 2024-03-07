@@ -1,0 +1,5 @@
+{% for field in form %}
+    {% if field.value %}
+        <b>{{ field.label }}:</b> {{ field.value }}<br>
+    {% endif %}
+{% endfor %}

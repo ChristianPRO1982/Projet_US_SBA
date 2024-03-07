@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+Active process
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-4">{{ form.Name.value }}</h1>
+{% include '../common/process.html' with process_page=0 %}
+<h2 class="text-2xl font-bold mb-4">{% include '../common/process_status.html'%}</h2>
+{% endblock content %}
+
+{% block right-column %}
+{% include '../common/links.html' %}
+<br><hr><br>
+{% include '../common/info.html' %}
+{% endblock right-column %}

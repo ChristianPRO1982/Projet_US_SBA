@@ -1,0 +1,11 @@
+{% comment %} 🔴 🟠 🟡 🟢 🔵 🟣 ⚫️ ⚪️ {% endcomment %}
+
+{% if form.process_status.value == 1 %}
+🔵 In progress
+{% elif form.process_status.value == 2 %}
+🟡 All fields are filled
+{% elif form.process_status.value == 3 %}
+🟢 Warranty approuved
+{% else %}
+🔴 Warranty rejected
+{% endif %}
