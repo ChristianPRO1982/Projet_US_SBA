@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import ModelApi
-from .forms import ModelApiForm
 from django.views.generic import DetailView
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
-from .utils import process_validation
+from requests import Session
 import re
+import json
+from .models import ModelApi
+from .forms import ModelApiForm
+from .utils import process_validation
 
 
 @login_required
@@ -228,13 +230,44 @@ def process_guaranteedamountrequested(request):
     if request.method == 'POST':
         form = ModelApiForm(request.POST, instance=instance)
         if form.is_valid():
-            # TEST D'APPROBATION
-            if 'try_approval' in request.POST:
-                try_approval = 'coco'
-                
             # Récupérer les données valides du formulaire
             form_data = form.cleaned_data
+            # TEST D'APPROBATION
+            if 'try_approval' in request.POST:
+                try_approval = ''
+                try:
+                    min = int(float(request.POST['SBA_Appv_min']))
+                    max = int(float(request.POST['SBA_Appv_max']))
+                    step = int(float(request.POST['SBA_Appv_step']))
 
+                    url = 'http://127.0.0.1:8001/predict'
+                    headers = {
+                        'Accepts': 'application/json',
+                    }
+                    session = Session()
+                    session.headers.update(headers)
+                    form_to_api = ModelApiForm(instance=instance)
+
+                    i = 0
+                    for i_try_approval in range(min, max, step):
+                        i += 1
+                        if i > 10: break
+
+                        try:
+                            print(">>>>>>>>>>")
+                            print(form_to_api.cleaned_data)
+                            features = json.dumps(form_to_api.cleaned_data)
+                            print(">>>>>>>>>>")
+                            print(url, features)
+                            response = session.post(url, data=features)
+                        except:
+                            try_approval += 'API Error'
+                            break
+
+                        try_approval += '<br>' + str(i_try_approval)
+                except:
+                    try_approval = "Inputs are not numerics."
+                
             # test de l'onglet
             process = False
             if form_data['GrAppv']:
@@ -254,8 +287,8 @@ def process_guaranteedamountrequested(request):
             errors = form.errors
     else:
         form = ModelApiForm(instance=instance)
-        
-    return render(request, 'predict/process_guaranteedamountrequested.html', {'Name': data.Name, 'form': form, 'errors': errors, 'try_approval': try_approval})
+    
+    return render(request, 'predict/process_guaranteedamountrequested.html', {'Name': data.Name, 'form': form, 'errors': errors, 'SBA_Appv_max': data.GrAppv + 1000, 'try_approval': try_approval})
 
 @login_required
 def process_sbaapprouval(request):
