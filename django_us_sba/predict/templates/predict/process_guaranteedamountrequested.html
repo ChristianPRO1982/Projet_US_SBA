@@ -23,8 +23,8 @@
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
         <b>SBA’s guaranteed amount of approved loan:</b><br>
-        min: <input name="SBA_Appv_min" value="{{ form.GrAppv.value }}"><br>
-        max: <input name="SBA_Appv_max" value="{{ form.GrAppv.value }}"><br>
+        min: <input id="SBA_Appv_min" name="SBA_Appv_min" value="{{ form.GrAppv.value }}"><br>
+        max: <input name="SBA_Appv_max" value="{{ SBA_Appv_max }}"><br>
         step: <input name="SBA_Appv_step" value="1000">
     </div>
     <div class="md:col-span-3">
@@ -40,8 +40,10 @@
             <button type="submit" name="try_approval"
                 class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none
                 focus:bg-blue-600">🤘 Try SBA’s guaranteed amount of approved loan 🏦</button>
-            <br><br><hr><br>
-            {{ try_approval }}
+            <br><br><hr>
+            {% autoescape off %}
+                {{ try_approval }}
+            {% endautoescape %}
         {% endif %}
     </div>
 </form>
