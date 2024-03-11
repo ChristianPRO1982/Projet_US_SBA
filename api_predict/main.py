@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 from model_utils import load_model, prediction
 import pandas as pd
+import random
 
 '''
 City	EVANSVILLE
@@ -56,11 +57,12 @@ class PredictionOutput(BaseModel):
 
 @app.post("/predict")
 def prediction_root(features_input: FeaturesInput):
-    model = load_model('modelLGBM.pkl')
+    # model = load_model('modelLGBM.pkl')
 
-    data_input_dict = features_input.dict()
-    data_input_df = pd.DataFrame(data_input_dict, index=[0])
+    # data_input_dict = features_input.dict()
+    # data_input_df = pd.DataFrame(data_input_dict, index=[0])
 
-    predictions = prediction(model, data_input_df)
+    # predictions = prediction(model, data_input_df)
     
-    return PredictionOutput(predict=predictions)
+    # return PredictionOutput(predict=predictions)
+    return random.choice([0, 1])

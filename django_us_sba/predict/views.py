@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.utils.decorators import method_decorator
-from django.http import HttpResponse
-from requests import Session
+import requests
 import re
 import json
 from .models import ModelApi
@@ -232,6 +231,7 @@ def process_guaranteedamountrequested(request):
         if form.is_valid():
             # Récupérer les données valides du formulaire
             form_data = form.cleaned_data
+            
             # TEST D'APPROBATION
             if 'try_approval' in request.POST:
                 try_approval = ''
@@ -240,13 +240,36 @@ def process_guaranteedamountrequested(request):
                     max = int(float(request.POST['SBA_Appv_max']))
                     step = int(float(request.POST['SBA_Appv_step']))
 
-                    url = 'http://127.0.0.1:8001/predict'
+                    url = 'http://api_predict:8001/predict'
                     headers = {
                         'Accepts': 'application/json',
+                        'Content-Type': 'application/json',
                     }
-                    session = Session()
-                    session.headers.update(headers)
-                    form_to_api = ModelApiForm(instance=instance)
+                    # session = Session()
+                    # session.headers.update(headers)
+
+                    data_dict = {
+                        'City': data.City,
+                        'State': data.State,
+                        'Zip': data.Zip,
+                        'Bank': data.Bank,
+                        'BankState': data.BankState,
+                        'NAICS': data.NAICS,
+                        'ApprovalDate': data.ApprovalDate.strftime('%Y-%m-%d'),
+                        'ApprovalFY': data.ApprovalFY.strftime('%Y-%m-%d'),
+                        'Term': data.Term,
+                        'NoEmp': data.NoEmp,
+                        'NewExist': data.NewExist,
+                        'CreateJob': data.CreateJob,
+                        'RetainedJob': data.RetainedJob,
+                        'DiffJobs': data.DiffJobs,
+                        'FranchiseCode': data.FranchiseCode,
+                        'UrbanRural': data.UrbanRural,
+                        'RevLineCr': data.RevLineCr,
+                        'LowDoc': data.LowDoc,
+                        'GrAppv': data.GrAppv,
+                        'SBA_Appv': 0,
+                    }
 
                     i = 0
                     for i_try_approval in range(min, max, step):
@@ -254,18 +277,23 @@ def process_guaranteedamountrequested(request):
                         if i > 10: break
 
                         try:
-                            print(">>>>>>>>>>")
-                            print(form_to_api.cleaned_data)
-                            features = json.dumps(form_to_api.cleaned_data)
-                            print(">>>>>>>>>>")
-                            print(url, features)
-                            response = session.post(url, data=features)
-                        except:
+                            data_dict['SBA_Appv'] = i_try_approval
+                            json_data = json.dumps(data_dict)
+                            response = requests.post(url, data=json_data, headers=headers)
+                            response_json = response.json()
+                            print('session:', response_json)
+                        except Exception as e:
+                            print()
+                            print("try_approval error 2:", e)
+                            print()
                             try_approval += 'API Error'
                             break
 
-                        try_approval += '<br>' + str(i_try_approval)
-                except:
+                        try_approval += '<br>pour $' + str(i_try_approval) + ' > ' + str(response_json)
+                except Exception as e:
+                    print()
+                    print("try_approval error 1:", e)
+                    print()
                     try_approval = "Inputs are not numerics."
                 
             # test de l'onglet
