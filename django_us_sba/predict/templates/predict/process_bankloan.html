@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block title %}
 {% include '../common/process_status_mini.html'%}Bank loan
@@ -19,13 +20,13 @@
 <form action="{% url 'process_bankloan' %}" method="post" class="grid grid-cols-1 md:grid-cols-3 gap-y-4 gap-x-4">
     {% csrf_token %}
     <div class="bg-blue-50 p-1 rounded-md">
-        Approval Date (Date SBA commitment issued): {{ form.ApprovalDate }} [YYYY-MM-DD]
+        Approval Date (Date SBA commitment issued): {{ form.ApprovalDate|add_class:"input_style" }} [YYYY-MM-DD]
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
-        Approval FY (Fiscal year of commitment): <input maxlength="4" name="date_ApprovalFY" value="{{ form.ApprovalFY.value|date:'Y' }}"> [YYYY]
+        Approval FY (Fiscal year of commitment): <input class="input_style" maxlength="4" name="date_ApprovalFY" value="{{ form.ApprovalFY.value|date:'Y' }}"> [YYYY]
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
-        Term (Loan term in months): {{ form.Term }}
+        Term (Loan term in months): {{ form.Term|add_class:"input_style" }}
     </div>
     <div class="md:col-span-3">
         <button type="submit"

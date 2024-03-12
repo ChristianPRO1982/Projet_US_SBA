@@ -8,6 +8,8 @@ services:
     build:
       context: ./django_us_sba/
       dockerfile: Dockerfile
+    volumes:
+      - ./django_us_sba/:/app/
 
   postgres_db:
     image: postgres

@@ -26,4 +26,5 @@ urlpatterns = [
     path('',include('root.urls')),
     path('predict/',include('predict.urls')),
     path('', include("django.contrib.auth.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

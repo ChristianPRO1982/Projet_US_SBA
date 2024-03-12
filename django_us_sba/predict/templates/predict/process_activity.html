@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block title %}
 {% include '../common/process_status_mini.html'%}Activity
@@ -26,7 +27,7 @@
         <label for="NewExist_yes">New business</label>
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
-        Number of business employees: {{ form.NoEmp }}
+        Number of business employees: {{ form.NoEmp|add_class:"input_style" }}
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
         Franchise Code:
@@ -36,10 +37,10 @@
         <label for="FranchiseCode_no">No</label>
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
-        Number of jobs created: {{ form.CreateJob }}
+        Number of jobs created: {{ form.CreateJob|add_class:"input_style" }}
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
-        Number of jobs retained: {{ form.RetainedJob }}
+        Number of jobs retained: {{ form.RetainedJob|add_class:"input_style" }}
     </div>
     <div class="bg-blue-50 p-1 rounded-md">
         Diff jobs: <b>{{ form.DiffJobs.value }}</b>

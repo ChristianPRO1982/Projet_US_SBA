@@ -87,7 +87,7 @@ def process_bank(request):
             form_data = form.cleaned_data
             # test de l'onglet
             process = False
-            if form_data['Bank'] and form_data['BankState'] and form_data['NAICS']:
+            if form_data['Bank'] and form_data['BankState'] and form_data['NAICS'] is not None and form_data['NAICS'] != "":
                 process = True
             # Mettre à jour uniquement certains champs du modèle
             ModelApi.objects.filter(pk=instance.pk).update(Bank=form_data['Bank'],
@@ -147,7 +147,9 @@ def process_activity(request):
 
             # test de l'onglet
             process = False
-            if form_data['NoEmp'] and form_data['CreateJob'] and form_data['RetainedJob']:
+            if (form_data['NoEmp'] is not None and form_data['NoEmp'] != ""
+                and form_data['CreateJob'] is not None and form_data['CreateJob'] != ""
+                and form_data['RetainedJob'] is not None and form_data['RetainedJob'] != ""):
                 process = True
 
             # Mettre à jour uniquement certains champs du modèle
@@ -288,8 +290,12 @@ def process_guaranteedamountrequested(request):
                             print()
                             try_approval += 'API Error'
                             break
+                        
+                        response = "KO"
+                        if response_json['predict']:
+                            response = "OK"
 
-                        try_approval += '<br>pour $' + str(i_try_approval) + ' > ' + str(response_json)
+                        try_approval += '<br>pour $' + str(i_try_approval) + ' > ' + response
                 except Exception as e:
                     print()
                     print("try_approval error 1:", e)
@@ -316,7 +322,12 @@ def process_guaranteedamountrequested(request):
     else:
         form = ModelApiForm(instance=instance)
     
-    return render(request, 'predict/process_guaranteedamountrequested.html', {'Name': data.Name, 'form': form, 'errors': errors, 'SBA_Appv_max': data.GrAppv + 1000, 'try_approval': try_approval})
+    try:
+        data = ModelApi.objects.get(pk=request.session['process_pk'])
+        SBA_Appv_max = data.GrAppv + 1000
+    except:
+        SBA_Appv_max = 0
+    return render(request, 'predict/process_guaranteedamountrequested.html', {'Name': data.Name, 'form': form, 'errors': errors, 'SBA_Appv_max': SBA_Appv_max, 'try_approval': try_approval})
 
 @login_required
 def process_sbaapprouval(request):
