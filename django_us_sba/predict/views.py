@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.utils.decorators import method_decorator
+from django.urls import reverse
 import requests
 import re
 import json
@@ -21,8 +22,6 @@ class SelectProcess(DetailView):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         request.session['process_pk'] = pk
-        # data = ModelApi.objects.get(pk=pk)
-        # context = {'data': data}
         instance = get_object_or_404(ModelApi, pk=request.session['process_pk'])
         form = ModelApiForm(instance=instance)
         return render(request, 'predict/select_process.html', {'form': form})
@@ -247,8 +246,6 @@ def process_guaranteedamountrequested(request):
                         'Accepts': 'application/json',
                         'Content-Type': 'application/json',
                     }
-                    # session = Session()
-                    # session.headers.update(headers)
 
                     data_dict = {
                         'City': data.City,
@@ -295,7 +292,7 @@ def process_guaranteedamountrequested(request):
                         if response_json['predict']:
                             response = "OK"
 
-                        try_approval += '<br>pour $' + str(i_try_approval) + ' > ' + response
+                        try_approval += '<br><a href="' + reverse('process_sbaapprouval') + '?SBA_Appv=' + str(i_try_approval) + '">pour $' + str(i_try_approval) + ' > ' + response + '</a>'
                 except Exception as e:
                     print()
                     print("try_approval error 1:", e)
@@ -346,12 +343,59 @@ def process_sbaapprouval(request):
 
             # test de l'onglet
             process = False
-            if form_data['GrAppv']:
+            if form_data['SBA_Appv']:
                 process = True
 
+                url = 'http://api_predict:8001/predict'
+                headers = {
+                    'Accepts': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+
+                data_dict = {
+                    'City': data.City,
+                    'State': data.State,
+                    'Zip': data.Zip,
+                    'Bank': data.Bank,
+                    'BankState': data.BankState,
+                    'NAICS': data.NAICS,
+                    'ApprovalDate': data.ApprovalDate.strftime('%Y-%m-%d'),
+                    'ApprovalFY': data.ApprovalFY.strftime('%Y-%m-%d'),
+                    'Term': data.Term,
+                    'NoEmp': data.NoEmp,
+                    'NewExist': data.NewExist,
+                    'CreateJob': data.CreateJob,
+                    'RetainedJob': data.RetainedJob,
+                    'DiffJobs': data.DiffJobs,
+                    'FranchiseCode': data.FranchiseCode,
+                    'UrbanRural': data.UrbanRural,
+                    'RevLineCr': data.RevLineCr,
+                    'LowDoc': data.LowDoc,
+                    'GrAppv': data.GrAppv,
+                    'SBA_Appv': form_data['SBA_Appv'],
+                }
+
+                try:
+                    json_data = json.dumps(data_dict)
+                    response = requests.post(url, data=json_data, headers=headers)
+                    response_json = response.json()
+                except Exception as e:
+                    print()
+                    print("try_approval SBA approuval:", e)
+                    print()
+                
+                process_status = 0
+                if response_json['predict']:
+                    process_status = 3
+                
+            else:
+                process_status = 2
+
+
             # Mettre à jour uniquement certains champs du modèle
-            ModelApi.objects.filter(pk=instance.pk).update(GrAppv=form_data['GrAppv'],
-                                                           process_sba_approuval=process)
+            ModelApi.objects.filter(pk=instance.pk).update(SBA_Appv=form_data['SBA_Appv'],
+                                                           process_sba_approuval=process,
+                                                           process_status=process_status)
             # Recharger l'instance du modèle pour refléter les changements
             instance.refresh_from_db()
             form = ModelApiForm(instance=instance)
@@ -360,8 +404,13 @@ def process_sbaapprouval(request):
             errors = form.errors
     else:
         form = ModelApiForm(instance=instance)
-        
-    return render(request, 'predict/process_sbaapprouval.html', {'Name': data.Name, 'form': form, 'errors': errors})
+    
+    try:
+        SBA_Appv = request.GET.get('SBA_Appv')
+    except:
+        SBA_Appv = None
+
+    return render(request, 'predict/process_sbaapprouval.html', {'Name': data.Name, 'form': form, 'errors': errors, 'SBA_Appv': SBA_Appv})
 
 @login_required
 def process_delete_validation(request):

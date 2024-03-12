@@ -7,7 +7,17 @@ List of processes
 {% block content %}
 <h1 class="text-4xl font-bold mb-4">List of processes</h1>
 {% for objet in data %}
-    <li><a href="{{ objet.id }}">🔗 {{ objet.Name }}</a></li>
+    <li><a href="{{ objet.id }}">🔗 {{ objet.Name }}
+        {% if objet.process_status == 1 %}
+        🔵 In progress
+        {% elif objet.process_status == 2 %}
+        🟡 All fields are filled
+        {% elif objet.process_status == 3 %}
+        🟢 Warranty approuved
+        {% else %}
+        🔴 Warranty rejected
+        {% endif %}
+    </a></li>
 {% endfor %}
 {% endblock content %}
 
