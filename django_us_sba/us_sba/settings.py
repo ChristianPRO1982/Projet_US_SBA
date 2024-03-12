@@ -36,11 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    "livereload",
+    # "livereload",
     'django.contrib.staticfiles',
     'root',
     'predict',
     'widget_tweaks',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'livereload.middleware.LiveReloadScript',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # 'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'us_sba.urls'
@@ -171,3 +175,9 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 # AUTH_USER_MODEL = "root.User"  <<< code permettant de cibler une table user custom
+
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
