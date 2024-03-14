@@ -6,3 +6,4 @@ django-tailwind[reload]
 requests<3
 psycopg2-binary<3
 whitenoise<7
+gunicorn<22

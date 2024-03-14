@@ -8,6 +8,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 
+def get_all_users_data():
+    all_users_data = User.objects.all()
+    return all_users_data
+
 def error_404(request, exception):
     return render(request, 'root/404.html', status=404)
 
@@ -17,17 +21,33 @@ def root_homepage(request):
 def about(request):
     return render(request, 'root/about.html')
 
+def users(request):
+    user_id = request.GET.get('user')
+    if user_id:
+        try:
+            user = User.objects.get(pk=user_id)
+            user.delete()
+        except:
+            pass
+
+    all_users_data = get_all_users_data()
+    context = {
+        "all_users_data": all_users_data,
+    }
+    return render(request, 'root/users.html', context=context)
+
 def history(request):
     return render(request, 'root/history.html')
 
-class UserCreationFromCustom(UserCreationForm):
-    class Meta(UserCreationForm.Meta) :
-        model = User
+# class UserCreationFromCustom(UserCreationForm):
+#     class Meta(UserCreationForm.Meta) :
+#         model = User
 
 class SignupView(CreateView):
     form_class = SignupForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+
 
     def form_valid(self, form):
         response = super().form_valid(form)

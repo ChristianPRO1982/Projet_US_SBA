@@ -20,7 +20,7 @@
             {% endif %}
         </div>
 
-        <div id='hamburger' class='flex justify-end md:hidden h-16 items-center'>
+        <div id='hamburger' class='flex justify-end md:hidden h-8 items-center'>
             <div class='w-6 space-y-1 mx-3'>
                 <div class="h-1 bg-black"></div>
                 <div class="h-1 bg-black"></div>
@@ -29,9 +29,7 @@
         </div>
     
         <nav id='menu' class='flex flex-col absolute top-0 bg-gray-400 w-full hidden'>
-            <a href="">Lien 1</a>
-            <a href="">Lien 2</a>
-            <a href="">Lien 3</a>
+            {% include "includes/links.html" %}
             <a href="">Login &#10132;</a>
         </nav>
     </nav>
